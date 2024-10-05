@@ -2003,6 +2003,15 @@
 "Show variable" = "Zeige Variable";
 
 /* No comment provided by engineer. */
+"Start to plot" = "Plotten starten";
+
+/* No comment provided by engineer. */
+"Stop to plot" = "Plotten beenden";
+
+/* No comment provided by engineer. */
+"Save plot as SVG" = "Plot als SVG speichern";
+
+/* No comment provided by engineer. */
 "sine" = "sinus";
 
 /* No comment provided by engineer. */
