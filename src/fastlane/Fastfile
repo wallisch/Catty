@@ -93,6 +93,18 @@ platform :ios do
   #
   ##########################################################################
 
+  desc "Run Unittests"
+  lane :unittests do
+    run_tests(
+      project: "Catty.xcodeproj",
+      scheme: $catty_schemes["debug"],
+      testplan: "Tests",
+      device: "iPhone 15",
+      xcodebuild_formatter: "xcbeautify --renderer terminal",
+      result_bundle_path: "fastlane/test_output/Tests.xcresult"
+    )
+  end
+
   desc "Run tests"
   lane :tests do
     clear_derived_data
