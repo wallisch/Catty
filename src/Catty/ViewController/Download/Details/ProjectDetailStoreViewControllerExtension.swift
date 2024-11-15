@@ -207,7 +207,7 @@ import UIKit
             })
 
         if imageView.image == nil {
-            let activity = UIActivityIndicatorView(style: .gray)
+            let activity = UIActivityIndicatorView(style: .medium)
             activity.tag = Int(kActivityIndicator)
             activity.frame = CGRect(x: imageView.frame.size.width / 2.0 - type(of: self).buttonHeight / 2.0,
                                     y: imageView.frame.size.height / 2.0 - type(of: self).buttonHeight / 2.0,
@@ -234,7 +234,7 @@ import UIKit
         downloadButton.addTarget(target, action: #selector(self.downloadButtonPressed), for: .touchUpInside)
         downloadButton.sizeToFit()
 
-        let activity = UIActivityIndicatorView(style: .gray)
+        let activity = UIActivityIndicatorView(style: .medium)
         activity.tag = Int(kActivityIndicator)
         activity.frame = CGRect(x: 5, y: 0, width: type(of: self).buttonHeight, height: type(of: self).buttonHeight)
         downloadButton.addSubview(activity)

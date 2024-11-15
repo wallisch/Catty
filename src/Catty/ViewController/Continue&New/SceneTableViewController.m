@@ -524,11 +524,9 @@
     [self.scene.project saveToDiskWithNotification:NO];
 }
 
-- (NSArray<UITableViewRowAction*>*)tableView:(UITableView*)tableView
-                editActionsForRowAtIndexPath:(NSIndexPath*)indexPath
+- (UISwipeActionsConfiguration*)tableView:(UITableView*)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    UITableViewRowAction *moreAction = [UIUtil tableViewMoreRowActionWithHandler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-        // More button was pressed
+    UIContextualAction *moreAction = [UIUtil moreContextualActionWithHandler:^(UIContextualAction *action, UIView *sourceView, void(^completionHandler)(BOOL)) {
         NSInteger spriteObjectIndex = (kBackgroundSectionIndex + indexPath.section + indexPath.row);
         
         SpriteObject *spriteObject = [self.scene.objects objectAtIndex:spriteObjectIndex];
@@ -558,12 +556,15 @@
             [self.tableView setEditing:false animated:YES];
         }]
          showWithController:self];
+        
+        completionHandler(YES);
     }];
-    moreAction.backgroundColor = UIColor.globalTint;
-    UITableViewRowAction *deleteAction = [UIUtil tableViewDeleteRowActionWithHandler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-        // Delete button was pressed
+    //moreAction.backgroundColor = UIColor.globalTint;
+    
+    UIContextualAction *deleteAction = [UIUtil deleteContextualActionWithHandler:^(UIContextualAction *action, UIView *sourceView, void(^completionHandler)(BOOL)) {
         // check just to ensure that background object can never be deleted!!
         if (indexPath.section != kObjectSectionIndex) {
+            completionHandler(NO);
             return;
         }
         [[[[[AlertControllerBuilder alertWithTitle:kLocalizedDeleteThisObject message:kLocalizedThisActionCannotBeUndone]
@@ -572,8 +573,11 @@
             [self deleteObjectForIndexPath:indexPath];
         }] build]
          showWithController:self];
+        
+        completionHandler(YES);
     }];
-    return @[deleteAction, moreAction];
+    
+    return [UISwipeActionsConfiguration configurationWithActions:@[deleteAction, moreAction]];
 }
 
 #pragma mark - Header View

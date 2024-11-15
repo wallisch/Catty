@@ -85,11 +85,7 @@
             self.reloadData()
         })
 
-        if #available(iOS 13.0, *) {
-            cvlvc.isModalInPresentation = true
-        } else {
-            cvlvc.modalPresentationStyle = .fullScreen
-        }
+        cvlvc.isModalInPresentation = true
 
         let nav = UINavigationController(rootViewController: cvlvc)
         self.present(nav, animated: true)
@@ -110,59 +106,57 @@
         self.navigationController?.popViewController(animated: true)
     }
 
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let tableViewRowAction = UITableViewRowAction(style: .destructive,
-                                                      title: "Delete") { _, indexPath in
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: kLocalizedDelete) { _, _, completionHandler in
+            let selectedVariable = self.allVariablesAndLists[self.getTableViewRowIndex(indexPath: indexPath)]
 
-                                                        let selectedVariable = self.allVariablesAndLists[self.getTableViewRowIndex(indexPath: indexPath)]
+            if selectedVariable.isList {
+                var list: UserList?
+                for projectList in self.listSourceProject where projectList.name == selectedVariable.name {
+                    list = projectList
+                }
 
-                                                        if selectedVariable.isList {
+                if list == nil {
+                    for objectList in self.listSourceObject where objectList.name == selectedVariable.name {
+                        list = objectList
+                    }
+                }
 
-                                                            var list: UserList?
-                                                            for projectList in self.listSourceProject where projectList.name == selectedVariable.name {
-                                                                list = projectList
-                                                            }
+                guard let userList = list else {
+                    fatalError("Could not find the list from the project or this object's scope")
+                }
 
-                                                            if list == nil {
-                                                                for objectList in self.listSourceObject where objectList.name == selectedVariable.name {
-                                                                    list = objectList
-                                                                }
-                                                            }
+                if !self.deleteList(userList: userList) {
+                    Util.showNotification(withMessage: kUIFEDeleteVarBeingUsed)
+                }
 
-                                                            guard let userList = list else {
-                                                                fatalError("Could not find the list from the project or this object's scope")
-                                                            }
+            } else {
+                var variable: UserVariable?
+                for projectVariable in self.variableSourceProject where projectVariable.name == selectedVariable.name {
+                    variable = projectVariable
+                }
 
-                                                            if !self.deleteList(userList: userList) {
-                                                                Util.showNotification(withMessage: kUIFEDeleteVarBeingUsed)
-                                                            }
+                if variable == nil {
+                    for objectVariable in self.variableSourceObject where objectVariable.name == selectedVariable.name {
+                        variable = objectVariable
+                    }
+                }
 
-                                                        } else {
+                guard let userVariable = variable else {
+                    fatalError("Could not find the variable from the project or this object's scope")
+                }
 
-                                                            var variable: UserVariable?
-                                                            for projectVariable in self.variableSourceProject where projectVariable.name == selectedVariable.name {
-                                                                variable = projectVariable
-                                                            }
+                if !self.deleteVariable(userVariable: userVariable) {
+                    Util.showNotification(withMessage: kUIFEDeleteVarBeingUsed)
+                }
+            }
 
-                                                            if variable == nil {
-                                                                for objectVariable in self.variableSourceObject where objectVariable.name == selectedVariable.name {
-                                                                    variable = objectVariable
-                                                                }
-                                                            }
-
-                                                            guard let userVariable = variable else {
-                                                                fatalError("Could not find the variable from the project or this object's scope")
-                                                            }
-
-                                                            if !self.deleteVariable(userVariable: userVariable) {
-                                                                Util.showNotification(withMessage: kUIFEDeleteVarBeingUsed)
-                                                            }
-
-                                                        }
-
+            completionHandler(true)
         }
 
-        return [tableViewRowAction]
+        deleteAction.backgroundColor = .destructiveTint
+
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 
     private func initDataItems() {

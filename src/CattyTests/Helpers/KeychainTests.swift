@@ -35,7 +35,7 @@ final class KeychainTests: XCTestCase {
     }
 
     func testInvalidKeychainRetrieval() {
-        let loadedValue = Keychain.loadValue(forKey: testKey) as? String
+        let loadedValue = Keychain.loadString(forKey: testKey)
         XCTAssertNil(loadedValue)
 
         XCTAssertFalse(Keychain.deleteValue(forKey: testKey))
@@ -44,7 +44,7 @@ final class KeychainTests: XCTestCase {
     func testKeychainRetrieval() {
         XCTAssertTrue(Keychain.saveValue(value, forKey: testKey))
 
-        let loadedValue = Keychain.loadValue(forKey: testKey) as? String
+        let loadedValue = Keychain.loadString(forKey: testKey)
         XCTAssertEqual(value, loadedValue)
 
         XCTAssertTrue(Keychain.deleteValue(forKey: testKey))
@@ -53,12 +53,12 @@ final class KeychainTests: XCTestCase {
     func testKeychainOverwrite() {
         XCTAssertTrue(Keychain.saveValue(value, forKey: testKey))
 
-        let loadedValue = Keychain.loadValue(forKey: testKey) as? String
+        let loadedValue = Keychain.loadString(forKey: testKey)
         XCTAssertEqual(value, loadedValue)
 
         XCTAssertTrue(Keychain.saveValue(otherValue, forKey: testKey))
 
-        let loadedOtherValue = Keychain.loadValue(forKey: testKey) as? String
+        let loadedOtherValue = Keychain.loadString(forKey: testKey)
         XCTAssertEqual(otherValue, loadedOtherValue)
 
         XCTAssertTrue(Keychain.deleteValue(forKey: testKey))

@@ -55,11 +55,9 @@ extension StagePresenterViewController {
         activityViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.down
         activityViewController.popoverPresentationController?.sourceRect = CGRect(x: 150, y: 150, width: 0, height: 0)
         // Pre-configuring activity items
-        if #available(iOS 13.0, *) {
-            activityViewController.activityItemsConfiguration = [
-                UIActivity.ActivityType.message
-            ] as? UIActivityItemsConfigurationReading
-        }
+        activityViewController.activityItemsConfiguration = [
+            UIActivity.ActivityType.message
+        ] as? UIActivityItemsConfigurationReading
 
         // Anything you want to exclude
         activityViewController.excludedActivityTypes = [
@@ -74,9 +72,7 @@ extension StagePresenterViewController {
             UIActivity.ActivityType.postToFacebook
         ]
 
-        if #available(iOS 13.0, *) {
-            activityViewController.isModalInPresentation = true
-        }
+        activityViewController.isModalInPresentation = true
         self.present(activityViewController, animated: true, completion: nil)
     }
 }

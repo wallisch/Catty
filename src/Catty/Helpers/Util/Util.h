@@ -145,8 +145,6 @@ if (__functor) __functor(__VA_ARGS__);  \
 
 + (void)openUrlExternal:(NSURL* _Nullable)url;
 
-+ (void)setNetworkActivityIndicator:(BOOL)enabled;
-
 + (BOOL)isPhiroActivated;
 
 + (BOOL)isArduinoActivated;

@@ -52,15 +52,16 @@ import Foundation
         return SecItemDelete(query as CFDictionary) == errSecSuccess
     }
 
-    @objc static func loadValue(forKey key: String) -> Any? {
+    @objc static func loadString(forKey key: String) -> String? {
         var query = Keychain.getQuery(forKey: key)
         query[kSecReturnData] = kCFBooleanTrue
         query[kSecMatchLimit] = kSecMatchLimitOne
 
         var value: AnyObject?
         if SecItemCopyMatching(query as CFDictionary, &value) == errSecSuccess {
-            if let value = value as? Data {
-                return try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(value)
+            if let value = value as? Data,
+               let string = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSString.self, from: value) {
+                return String(string)
             }
         }
 

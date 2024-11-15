@@ -23,7 +23,6 @@ import NaturalLanguage
 import Vision
 
 extension VisualDetectionManager {
-    @available(iOS 13.0, *)
     func handleTextObservations(_ textObservations: [VNRecognizedTextObservation]) {
         guard !textObservations.isEmpty else {
             resetTextRecogntion()

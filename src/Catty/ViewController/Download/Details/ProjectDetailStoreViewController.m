@@ -178,7 +178,6 @@
         [self.view viewWithTag:kOpenButtonTag].hidden = NO;
         downloadAgainButton.enabled = YES;
     }
-    [[Util class] setNetworkActivityIndicator:NO];
 }
 
 #pragma mark Rotation

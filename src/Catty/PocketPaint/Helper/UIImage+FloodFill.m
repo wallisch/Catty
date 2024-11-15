@@ -72,7 +72,7 @@
     unsigned int ocolor = getColorCode(byteIndex, imageData);
     
       //Convert newColor to RGBA value so we can save it to image.
-    int newRed, newGreen, newBlue, newAlpha;
+    int newRed = 0, newGreen = 0, newBlue = 0, newAlpha = 0;
     
     const CGFloat *components = CGColorGetComponents(newColor.CGColor);
     

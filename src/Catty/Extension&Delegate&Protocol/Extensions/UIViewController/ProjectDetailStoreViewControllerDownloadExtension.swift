@@ -67,8 +67,6 @@ extension ProjectDetailStoreViewController {
             downloadButton.isEnabled = true
             downloadButton.isHidden = false
         }
-
-        Util.setNetworkActivityIndicator(false)
     }
 
     private func resetDownloadStatus() {
@@ -76,8 +74,6 @@ extension ProjectDetailStoreViewController {
         self.view.viewWithTag(Int(kOpenButtonTag))?.isHidden = true
         self.view.viewWithTag(Int(kStopLoadingTag))?.isHidden = true
         self.view.viewWithTag(Int(kDownloadAgainButtonTag))?.isHidden = true
-
-        Util.setNetworkActivityIndicator(false)
     }
 
     private func updateProgress(_ progress: Double) {

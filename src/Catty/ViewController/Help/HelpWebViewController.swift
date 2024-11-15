@@ -134,7 +134,6 @@ class HelpWebViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
 
     // MARK: - WebViewDelegate
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        Util.setNetworkActivityIndicator(false)
         setupToolbarItems()
         errorLoadingURL = true
         doneLoadingURL = false
@@ -148,7 +147,6 @@ class HelpWebViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     }
 
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        Util.setNetworkActivityIndicator(false)
         url = webView.url
         setupToolbarItems()
         errorLoadingURL = false
@@ -164,7 +162,6 @@ class HelpWebViewController: UIViewController, WKUIDelegate, WKNavigationDelegat
     }
 
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        Util.setNetworkActivityIndicator(true)
         doneLoadingURL = false
         setProgress(0.2)
         setupToolbarItems()

@@ -372,11 +372,9 @@
     return YES;
 }
 
-- (NSArray<UITableViewRowAction*>*)tableView:(UITableView*)tableView
-                editActionsForRowAtIndexPath:(NSIndexPath*)indexPath
+- (UISwipeActionsConfiguration*)tableView:(UITableView*)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    UITableViewRowAction *moreAction = [UIUtil tableViewMoreRowActionWithHandler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-        // More button was pressed
+    UIContextualAction *moreAction = [UIUtil moreContextualActionWithHandler:^(UIContextualAction *action, UIView *sourceView, void(^completionHandler)(BOOL)) {
         NSString *sectionTitle = [self.sectionTitles objectAtIndex:indexPath.section];
         NSArray *sectionInfos = [self.projectLoadingInfoDict objectForKey:[[sectionTitle substringToIndex:1] uppercaseString]];
         ProjectLoadingInfo *info = sectionInfos[indexPath.row];
@@ -427,18 +425,22 @@
              [self.tableView setEditing:false animated:YES];
          }]
          showWithController:self];
+        
+        completionHandler(YES);
     }];
-    moreAction.backgroundColor = UIColor.globalTint;
-    UITableViewRowAction *deleteAction = [UIUtil tableViewDeleteRowActionWithHandler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-        // Delete button was pressed
+    
+    UIContextualAction *deleteAction = [UIUtil deleteContextualActionWithHandler:^(UIContextualAction *action, UIView *sourceView, void(^completionHandler)(BOOL)) {
         [[[[[AlertControllerBuilder alertWithTitle:kLocalizedDeleteThisProject message:kLocalizedThisActionCannotBeUndone]
          addCancelActionWithTitle:kLocalizedCancel handler:nil]
          addDefaultActionWithTitle:kLocalizedYes handler:^{
              [self deleteProjectForIndexPath:indexPath];
          }] build]
          showWithController:self];
+        
+        completionHandler(YES);
     }];
-    return @[deleteAction, moreAction];
+    
+    return [UISwipeActionsConfiguration configurationWithActions:@[deleteAction, moreAction]];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

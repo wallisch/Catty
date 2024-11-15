@@ -23,16 +23,6 @@
 @objc
 extension UIColor {
 
-    /* WORK IN PROGRESS: Theming
-    @nonobjc
-    static let currentTheme = CattyTheme.teal
-
-    enum CattyTheme {
-        case teal //default
-        case red
-        case pink
-    }*/
-
     /*
      * from: https://stackoverflow.com/a/24263296
      */
@@ -102,10 +92,7 @@ extension UIColor {
 
     convenience init?(hexString: String, alpha: CGFloat = 1.0) {
         let hexString: String = hexString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        let scanner = Scanner(string: hexString)
-        if hexString.hasPrefix("#") {
-            scanner.scanLocation = 1
-        }
+        let scanner = Scanner(string: hexString.hasPrefix("#") ? String(hexString.dropFirst()) : hexString)
         var color: UInt64 = 0
         scanner.scanHexInt64(&color)
         let mask = 0x000000FF
@@ -121,28 +108,10 @@ extension UIColor {
     // MARK: intern Colors
 
     static var light: UIColor {
-        /* WORK IN PROGRESS: Theming
-        switch currentTheme {
-        case .red:
-            return UIColor(hex: 0xde746a)
-        case .pink:
-            return UIColor(hex: 0xe68cd8)
-        default: //teal
-            return UIColor(hex: 0xadeef0)
-        }*/
         UIColor(hex: 0xadeef0)
     }
 
     static var medium: UIColor {
-        /* WORK IN PROGRESS: Theming
-        switch currentTheme {
-        case .red:
-            return UIColor(hex: 0xad2215)
-        case .pink:
-            return UIColor(hex: 0xb7189f)
-        default: //teal
-            return UIColor(hex: 0x18a5b7)
-        }*/
         UIColor(hex: 0x18a5b7)
     }
 
@@ -177,12 +146,6 @@ extension UIColor {
     }
 
     static var navTint: UIColor {
-        /* WORK IN PROGRESS: Dark mode
-        if #available(iOS 13.0, *) {
-            if UITraitCollection.current.userInterfaceStyle == .dark {
-                return self.dark
-            }
-        }*/
         self.light
     }
 
@@ -219,12 +182,6 @@ extension UIColor {
     }
 
     static var textTint: UIColor {
-        /* WORK IN PROGRESS: Dark mode
-        if #available(iOS 13.0, *) {
-            if UITraitCollection.current.userInterfaceStyle == .dark {
-                return self.light
-            }
-        }*/
         self.dark
     }
 
@@ -241,12 +198,7 @@ extension UIColor {
     }
 
     static var background: UIColor {
-        if #available(iOS 13.0, *) {
-            if UITraitCollection.current.userInterfaceStyle == .dark {
-                return self.black
-            }
-        }
-        return self.white
+        self.white
     }
 
     // MARK: FormulaEditor

@@ -393,11 +393,9 @@ UITextFieldDelegate>
     [self.object.scene.project saveToDiskWithNotification:NO];
 }
 
-- (NSArray<UITableViewRowAction*>*)tableView:(UITableView*)tableView
-                editActionsForRowAtIndexPath:(NSIndexPath*)indexPath
-{
-    UITableViewRowAction *moreAction = [UIUtil tableViewMoreRowActionWithHandler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-        // More button was pressed
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UIContextualAction *moreAction = [UIUtil moreContextualActionWithHandler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
         NSString *actionSheetTitle = self.object.isBackground ? kLocalizedEditBackground : kLocalizedEditLook;
         
         [[[[[[[AlertControllerBuilder actionSheetWithTitle:actionSheetTitle]
@@ -423,10 +421,11 @@ UITextFieldDelegate>
             [tableView setEditing:false animated:YES];
         }]
          showWithController:self];
+        
+        completionHandler(YES);
     }];
-    moreAction.backgroundColor = UIColor.globalTint;
-    UITableViewRowAction *deleteAction = [UIUtil tableViewDeleteRowActionWithHandler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-        // Delete button was pressed
+    
+    UIContextualAction *deleteAction = [UIUtil deleteContextualActionWithHandler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
         NSString *alertTitle = (self.object.isBackground ? kLocalizedDeleteThisBackground : kLocalizedDeleteThisLook);
         [[[[[AlertControllerBuilder alertWithTitle:alertTitle message:kLocalizedThisActionCannotBeUndone]
             addCancelActionWithTitle:kLocalizedCancel handler:nil]
@@ -434,8 +433,11 @@ UITextFieldDelegate>
             [self deleteLookForIndexPath:indexPath];
         }] build]
          showWithController:self];
+        
+        completionHandler(YES);
     }];
-    return @[deleteAction, moreAction];
+    
+    return [UISwipeActionsConfiguration configurationWithActions:@[deleteAction, moreAction]];
 }
 
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath
@@ -519,10 +521,10 @@ UITextFieldDelegate>
                     PHImageRequestOptions * imageRequestOptions = [[PHImageRequestOptions alloc] init];
                     imageRequestOptions.synchronous = YES;
                     [[PHImageManager defaultManager]
-                     requestImageDataForAsset:asset
+                     requestImageDataAndOrientationForAsset:asset
                      options:imageRequestOptions
                      resultHandler:^(NSData *imageData, NSString *dataUTI,
-                                     UIImageOrientation orientation,
+                                     CGImagePropertyOrientation orientation,
                                      NSDictionary *info)
                      {
                         if ([info objectForKey:@"PHImageFileURLKey"]) {

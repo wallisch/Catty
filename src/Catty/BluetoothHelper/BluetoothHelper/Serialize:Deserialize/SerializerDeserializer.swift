@@ -31,21 +31,6 @@ func fromHostByteOrder<T>(_ value: T) -> T {
     value
 }
 
-func byteArrayValue<T>(_ value: T) -> [UInt8] {
-    let values = [value]
-    let data = values.withUnsafeBytes { Data($0) }
-    var byteArray = [UInt8](repeating: 0, count: MemoryLayout<T>.size)
-    (data as NSData).getBytes(&byteArray, length: MemoryLayout<T>.size)
-    return byteArray
-}
-
-func reverseBytes<T>(_ value: T) -> T {
-    var result = value
-    let swappedBytes = Data(byteArrayValue(value).reversed())
-    (swappedBytes as NSData).getBytes(&result, length: MemoryLayout<T>.size)
-    return result
-}
-
 public protocol Deserialize {
     static var size: Int { get }
 

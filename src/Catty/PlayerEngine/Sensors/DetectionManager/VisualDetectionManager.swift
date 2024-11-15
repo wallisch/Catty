@@ -325,17 +325,15 @@ class VisualDetectionManager: NSObject, VisualDetectionManagerProtocol, AVCaptur
             detectionRequests.append(faceDetectionRequest)
         }
 
-        if #available(iOS 13.0, *) {
-            if textRecognitionEnabled {
-                let textDetectionRequest = VNRecognizeTextRequest { request, _ in
-                    if let textObservations = request.results as? [VNRecognizedTextObservation] {
-                        DispatchQueue.main.async {
-                            self.handleTextObservations(textObservations)
-                        }
+        if textRecognitionEnabled {
+            let textDetectionRequest = VNRecognizeTextRequest { request, _ in
+                if let textObservations = request.results as? [VNRecognizedTextObservation] {
+                    DispatchQueue.main.async {
+                        self.handleTextObservations(textObservations)
                     }
                 }
-                detectionRequests.append(textDetectionRequest)
             }
+            detectionRequests.append(textDetectionRequest)
         }
 
         if bodyPoseDetectionEnabled {

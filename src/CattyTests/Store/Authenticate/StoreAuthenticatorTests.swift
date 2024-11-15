@@ -53,8 +53,8 @@ class StoreAuthenticatorTests: XCTestCase {
             XCTAssertTrue(StoreAuthenticator.isLoggedIn())
 
             XCTAssertEqual(UserDefaults.standard.string(forKey: NetworkDefines.kUsername), self.testUser)
-            XCTAssertEqual(Keychain.loadValue(forKey: NetworkDefines.kAuthenticationToken) as? String, self.testToken)
-            XCTAssertEqual(Keychain.loadValue(forKey: NetworkDefines.kRefreshToken) as? String, self.testRefreshToken)
+            XCTAssertEqual(Keychain.loadString(forKey: NetworkDefines.kAuthenticationToken), self.testToken)
+            XCTAssertEqual(Keychain.loadString(forKey: NetworkDefines.kRefreshToken), self.testRefreshToken)
 
             expectation.fulfill()
         }
@@ -85,8 +85,8 @@ class StoreAuthenticatorTests: XCTestCase {
             XCTAssertFalse(StoreAuthenticator.isLoggedIn())
 
             XCTAssertNil(UserDefaults.standard.string(forKey: NetworkDefines.kUsername))
-            XCTAssertNil(Keychain.loadValue(forKey: NetworkDefines.kAuthenticationToken))
-            XCTAssertNil(Keychain.loadValue(forKey: NetworkDefines.kRefreshToken))
+            XCTAssertNil(Keychain.loadString(forKey: NetworkDefines.kAuthenticationToken))
+            XCTAssertNil(Keychain.loadString(forKey: NetworkDefines.kRefreshToken))
 
             expectation.fulfill()
         }
@@ -107,8 +107,8 @@ class StoreAuthenticatorTests: XCTestCase {
             XCTAssertTrue(StoreAuthenticator.isLoggedIn())
 
             XCTAssertEqual(UserDefaults.standard.string(forKey: NetworkDefines.kUsername), self.testUser)
-            XCTAssertEqual(Keychain.loadValue(forKey: NetworkDefines.kAuthenticationToken) as? String, self.testToken)
-            XCTAssertEqual(Keychain.loadValue(forKey: NetworkDefines.kRefreshToken) as? String, self.testRefreshToken)
+            XCTAssertEqual(Keychain.loadString(forKey: NetworkDefines.kAuthenticationToken), self.testToken)
+            XCTAssertEqual(Keychain.loadString(forKey: NetworkDefines.kRefreshToken), self.testRefreshToken)
 
             expectation.fulfill()
         }
@@ -139,8 +139,8 @@ class StoreAuthenticatorTests: XCTestCase {
             XCTAssertFalse(StoreAuthenticator.isLoggedIn())
 
             XCTAssertNil(UserDefaults.standard.string(forKey: NetworkDefines.kUsername))
-            XCTAssertNil(Keychain.loadValue(forKey: NetworkDefines.kAuthenticationToken))
-            XCTAssertNil(Keychain.loadValue(forKey: NetworkDefines.kRefreshToken))
+            XCTAssertNil(Keychain.loadString(forKey: NetworkDefines.kAuthenticationToken))
+            XCTAssertNil(Keychain.loadString(forKey: NetworkDefines.kRefreshToken))
 
             expectation.fulfill()
         }
@@ -165,8 +165,8 @@ class StoreAuthenticatorTests: XCTestCase {
             XCTAssertTrue(StoreAuthenticator.isLoggedIn())
 
             XCTAssertEqual(UserDefaults.standard.string(forKey: NetworkDefines.kUsername), self.testUser)
-            XCTAssertEqual(Keychain.loadValue(forKey: NetworkDefines.kAuthenticationToken) as? String, "newTestToken")
-            XCTAssertEqual(Keychain.loadValue(forKey: NetworkDefines.kRefreshToken) as? String, "newTestRefreshToken")
+            XCTAssertEqual(Keychain.loadString(forKey: NetworkDefines.kAuthenticationToken), "newTestToken")
+            XCTAssertEqual(Keychain.loadString(forKey: NetworkDefines.kRefreshToken), "newTestRefreshToken")
 
             expectation.fulfill()
         }
@@ -188,9 +188,9 @@ class StoreAuthenticatorTests: XCTestCase {
             XCTAssertTrue(StoreAuthenticator.isLoggedIn())
 
             XCTAssertEqual(UserDefaults.standard.string(forKey: NetworkDefines.kUsername), self.testUser)
-            XCTAssertEqual(Keychain.loadValue(forKey: NetworkDefines.kAuthenticationToken) as? String, self.testToken)
-            XCTAssertEqual(Keychain.loadValue(forKey: NetworkDefines.kRefreshToken) as? String, self.testRefreshToken)
-            XCTAssertNil(Keychain.loadValue(forKey: NetworkDefines.kLegacyToken))
+            XCTAssertEqual(Keychain.loadString(forKey: NetworkDefines.kAuthenticationToken), self.testToken)
+            XCTAssertEqual(Keychain.loadString(forKey: NetworkDefines.kRefreshToken), self.testRefreshToken)
+            XCTAssertNil(Keychain.loadString(forKey: NetworkDefines.kLegacyToken))
 
             expectation.fulfill()
         }
@@ -227,16 +227,16 @@ class StoreAuthenticatorTests: XCTestCase {
                 XCTAssertFalse(StoreAuthenticator.isLoggedIn())
 
                 XCTAssertEqual(UserDefaults.standard.string(forKey: NetworkDefines.kUsername), self.testUser)
-                XCTAssertNil(Keychain.loadValue(forKey: NetworkDefines.kAuthenticationToken))
-                XCTAssertNil(Keychain.loadValue(forKey: NetworkDefines.kRefreshToken))
-                XCTAssertNil(Keychain.loadValue(forKey: NetworkDefines.kLegacyToken))
+                XCTAssertNil(Keychain.loadString(forKey: NetworkDefines.kAuthenticationToken))
+                XCTAssertNil(Keychain.loadString(forKey: NetworkDefines.kRefreshToken))
+                XCTAssertNil(Keychain.loadString(forKey: NetworkDefines.kLegacyToken))
             } else {
                 XCTAssertTrue(StoreAuthenticator.isLoggedIn())
 
                 XCTAssertEqual(UserDefaults.standard.string(forKey: NetworkDefines.kUsername), self.testUser)
-                XCTAssertEqual(Keychain.loadValue(forKey: NetworkDefines.kAuthenticationToken) as? String, self.testToken)
-                XCTAssertEqual(Keychain.loadValue(forKey: NetworkDefines.kRefreshToken) as? String, self.testRefreshToken)
-                XCTAssertEqual(Keychain.loadValue(forKey: NetworkDefines.kLegacyToken) as? String, self.testLegacyToken)
+                XCTAssertEqual(Keychain.loadString(forKey: NetworkDefines.kAuthenticationToken), self.testToken)
+                XCTAssertEqual(Keychain.loadString(forKey: NetworkDefines.kRefreshToken), self.testRefreshToken)
+                XCTAssertEqual(Keychain.loadString(forKey: NetworkDefines.kLegacyToken), self.testLegacyToken)
             }
 
             expectation.fulfill()
@@ -284,8 +284,8 @@ class StoreAuthenticatorTests: XCTestCase {
             XCTAssertFalse(StoreAuthenticator.isLoggedIn())
 
             XCTAssertNil(UserDefaults.standard.string(forKey: NetworkDefines.kUsername))
-            XCTAssertNil(Keychain.loadValue(forKey: NetworkDefines.kAuthenticationToken))
-            XCTAssertNil(Keychain.loadValue(forKey: NetworkDefines.kRefreshToken))
+            XCTAssertNil(Keychain.loadString(forKey: NetworkDefines.kAuthenticationToken))
+            XCTAssertNil(Keychain.loadString(forKey: NetworkDefines.kRefreshToken))
 
             expectation.fulfill()
         }
@@ -316,8 +316,8 @@ class StoreAuthenticatorTests: XCTestCase {
             XCTAssertTrue(StoreAuthenticator.isLoggedIn())
 
             XCTAssertEqual(UserDefaults.standard.string(forKey: NetworkDefines.kUsername), self.testUser)
-            XCTAssertEqual(Keychain.loadValue(forKey: NetworkDefines.kAuthenticationToken) as? String, self.testToken)
-            XCTAssertEqual(Keychain.loadValue(forKey: NetworkDefines.kRefreshToken) as? String, self.testRefreshToken)
+            XCTAssertEqual(Keychain.loadString(forKey: NetworkDefines.kAuthenticationToken), self.testToken)
+            XCTAssertEqual(Keychain.loadString(forKey: NetworkDefines.kRefreshToken), self.testRefreshToken)
 
             expectation.fulfill()
         }
@@ -336,9 +336,9 @@ class StoreAuthenticatorTests: XCTestCase {
         StoreAuthenticator.logout()
 
         XCTAssertNil(UserDefaults.standard.string(forKey: NetworkDefines.kUsername))
-        XCTAssertNil(Keychain.loadValue(forKey: NetworkDefines.kAuthenticationToken))
-        XCTAssertNil(Keychain.loadValue(forKey: NetworkDefines.kRefreshToken))
-        XCTAssertNil(Keychain.loadValue(forKey: NetworkDefines.kLegacyToken))
+        XCTAssertNil(Keychain.loadString(forKey: NetworkDefines.kAuthenticationToken))
+        XCTAssertNil(Keychain.loadString(forKey: NetworkDefines.kRefreshToken))
+        XCTAssertNil(Keychain.loadString(forKey: NetworkDefines.kLegacyToken))
     }
 
     // MARK: - Info Methods

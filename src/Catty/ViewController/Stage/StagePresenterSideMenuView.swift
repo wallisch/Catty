@@ -176,11 +176,7 @@ enum SideMenuButtonType {
             self.landscapeMultiplier = 1.7
         }
         let backButton = setupButton(imageName: "chevron.left", selector: #selector(delegate?.stopAction), type: .landscapeLarge)
-        if #available(iOS 11.0, *) {
-            backButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: marginTopBottom).isActive = true
-        } else {
-            backButton.topAnchor.constraint(equalTo: self.topAnchor, constant: marginTopBottom).isActive = true
-        }
+        backButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: marginTopBottom).isActive = true
 
         let backLabel = setupLabel(title: kLocalizedBack, selector: #selector(delegate?.stopAction), type: .landscapeLarge)
         backLabel.topAnchor.constraint(equalTo: backButton.bottomAnchor).isActive = true
@@ -334,11 +330,7 @@ enum SideMenuButtonType {
             button.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
             button.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         case .landscapeSmall:
-            if #available(iOS 11.0, *) {
-                button.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: marginTopBottom * -1).isActive = true
-            } else {
-                button.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: marginTopBottom * -1).isActive = true
-            }
+            button.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: marginTopBottom * -1).isActive = true
         }
 
         return button
@@ -411,20 +403,9 @@ enum SideMenuButtonType {
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
-        let newImageHighlight = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-
-        button.setImage(newImage?.withRenderingMode(.alwaysTemplate), for: .normal)
-        button.imageView?.tintColor = UIColor.navBarButton
-        if #available(iOS 13.0, *) {
-            button.currentImage?.withTintColor(UIColor.navBarButton)
-        }
-        button.setImage(newImageHighlight?.withRenderingMode(.alwaysTemplate), for: .highlighted)
-        button.setImage(newImageHighlight?.withRenderingMode(.alwaysTemplate), for: .selected)
-        if #available(iOS 13.0, *) {
-            button.currentImage?.withTintColor(UIColor.navBarButtonHighlighted)
-        }
-
+        button.setImage(newImage?.withTintColor(UIColor.navBarButton), for: .normal)
+        button.setImage(newImage?.withTintColor(UIColor.navBarButtonHighlighted), for: .highlighted)
+        button.setImage(newImage?.withTintColor(UIColor.navBarButtonHighlighted), for: .selected)
     }
 
     private func changeImage(_ imageName: String, for button: UIButton) {
@@ -442,18 +423,8 @@ enum SideMenuButtonType {
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
-        let newImageHighlight = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-
-        button.setImage(newImage?.withRenderingMode(.alwaysTemplate), for: .normal)
-        button.imageView?.tintColor = UIColor.navBarButton
-        if #available(iOS 13.0, *) {
-            button.currentImage?.withTintColor(UIColor.navBarButton)
-        }
-        button.setImage(newImageHighlight?.withRenderingMode(.alwaysTemplate), for: .highlighted)
-        button.setImage(newImageHighlight?.withRenderingMode(.alwaysTemplate), for: .selected)
-        if #available(iOS 13.0, *) {
-            button.currentImage?.withTintColor(UIColor.navBarButtonHighlighted)
-        }
+        button.setImage(newImage?.withTintColor(UIColor.navBarButton), for: .normal)
+        button.setImage(newImage?.withTintColor(UIColor.navBarButtonHighlighted), for: .highlighted)
+        button.setImage(newImage?.withTintColor(UIColor.navBarButtonHighlighted), for: .selected)
     }
 }

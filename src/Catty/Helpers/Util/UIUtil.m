@@ -29,24 +29,20 @@
 
 @implementation UIUtil
 
-+ (UITableViewRowAction*)tableViewMoreRowActionWithHandler:(row_action_block_t)handler {
-    UITableViewRowAction *moreRowAction = nil;
-    moreRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault
-                                                       title:kLocalizedMore
-                                                     handler:handler];
-    moreRowAction.backgroundColor = UIColor.clearColor;
-    return moreRowAction;
++ (UIContextualAction*)moreContextualActionWithHandler:(row_action_block_t)handler {
+    UIContextualAction *moreAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
+                                                                           title:kLocalizedMore
+                                                                         handler:handler];
+    moreAction.backgroundColor = UIColor.globalTint;
+    return moreAction;
 }
 
-
-
-+ (UITableViewRowAction*)tableViewDeleteRowActionWithHandler:(row_action_block_t)handler {
-    UITableViewRowAction *deleteRowAction = nil;
-    deleteRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault
-                                                         title:kLocalizedDelete
-                                                       handler:handler];
-    deleteRowAction.backgroundColor = UIColor.destructiveTint;
-    return deleteRowAction;
++ (UIContextualAction*)deleteContextualActionWithHandler:(row_action_block_t)handler {
+    UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive
+                                                                            title:kLocalizedDelete
+                                                                          handler:handler];
+    deleteAction.backgroundColor = UIColor.destructiveTint;
+    return deleteAction;
 }
 
 + (UILabel*)newDefaultBrickLabelWithFrame:(CGRect)frame {

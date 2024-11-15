@@ -25,11 +25,9 @@ class ThemesHelper: NSObject {
     @objc static func changeAppearance() {
         UITextField.appearance().keyboardAppearance = UIKeyboardAppearance.default
 
-        if #available(iOS 13.0, *) {
-            UISegmentedControl.appearance().selectedSegmentTintColor = UIColor.globalTint
-            UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.background], for: .selected)
-            UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.globalTint], for: .normal)
-        }
+        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor.globalTint
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.background], for: .selected)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.globalTint], for: .normal)
 
         UINavigationBar.appearance(whenContainedInInstancesOf: [UIDocumentBrowserViewController.self]).tintColor = UIColor.navBar
     }

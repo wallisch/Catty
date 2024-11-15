@@ -22,7 +22,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^row_action_block_t)(UITableViewRowAction *_Nonnull action, NSIndexPath *_Nonnull indexPath);
+typedef void (^row_action_block_t)(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL));
 
 @class iOSCombobox;
 @class FormulaEditorTextField;
@@ -30,8 +30,8 @@ typedef void (^row_action_block_t)(UITableViewRowAction *_Nonnull action, NSInde
 
 @interface UIUtil : NSObject
 
-+ (UITableViewRowAction* _Nonnull)tableViewMoreRowActionWithHandler:(row_action_block_t _Nonnull)handler;
-+ (UITableViewRowAction* _Nonnull)tableViewDeleteRowActionWithHandler:(row_action_block_t _Nonnull)handler;
++ (UIContextualAction* _Nonnull)moreContextualActionWithHandler:(row_action_block_t _Nonnull)handler;
++ (UIContextualAction* _Nonnull)deleteContextualActionWithHandler:(row_action_block_t _Nonnull)handler;
 + (UILabel* _Nonnull)newDefaultBrickLabelWithFrame:(CGRect)frame;
 + (UILabel* _Nonnull)newDefaultBrickLabelWithFrame:(CGRect)frame AndText:(NSString* _Nullable)text andRemainingSpace:(NSInteger)remainingSpace;
 + (iOSCombobox* _Nonnull)newDefaultBrickComboBoxWithFrame:(CGRect)frame AndItems:(NSArray* _Nonnull)items;

@@ -129,13 +129,11 @@ class SearchStoreViewController: UIViewController, SelectedSearchStoreDataSource
             view.addSubview(loadingView!)
         }
         loadingView?.show()
-        Util.setNetworkActivityIndicator(true)
     }
 
     func hideLoadingView() {
         if shouldHideLoadingView {
             loadingView?.hide()
-            Util.setNetworkActivityIndicator(false)
             self.shouldHideLoadingView = false
         }
     }

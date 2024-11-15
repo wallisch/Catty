@@ -498,8 +498,9 @@
                                 | UIViewAnimationOptionAutoreverse
                                 | UIViewAnimationOptionAllowUserInteraction
                      animations:^{
-                         [UIView setAnimationRepeatCount:4];
-                         self.alpha = 1.0f;
+                        [UIView modifyAnimationsWithRepeatCount:4 autoreverses:true animations:^{
+                            self.alpha = 1.0f;
+                        }];
                      }
                      completion:^(BOOL finished) {
                          self.alpha = 1.0f;

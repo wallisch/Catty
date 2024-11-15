@@ -57,7 +57,6 @@
     CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
     
     self.pickerView = [[iOSComboboxPickerView alloc] initWithFrame:CGRectMake(0.0f, pickerY, screenWidth, PICKER_VIEW_HEIGHT)];
-    [self.pickerView setShowsSelectionIndicator:YES];
     [self.pickerView setDataSource:self];
     [self.pickerView setDelegate:self];
     [self.pickerView selectRow:[self.values indexOfObject:[self currentValue]] inComponent:0 animated:NO];

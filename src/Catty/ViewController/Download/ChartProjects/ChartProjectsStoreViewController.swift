@@ -167,13 +167,11 @@ class ChartProjectsStoreViewController: UIViewController, SelectedChartProjectsD
             view.addSubview(loadingView!)
         }
         loadingView?.show()
-        Util.setNetworkActivityIndicator(true)
     }
 
     func hideLoadingView() {
         if shouldHideLoadingView {
             loadingView?.hide()
-            Util.setNetworkActivityIndicator(false)
             self.shouldHideLoadingView = false
         }
     }
@@ -206,7 +204,7 @@ extension ChartProjectsStoreViewController {
     func showLoadingIndicator(_ inTableFooter: Bool = false) {
         DispatchQueue.main.async {
             if inTableFooter {
-                let spinner = UIActivityIndicatorView(style: .gray)
+                let spinner = UIActivityIndicatorView(style: .medium)
                 spinner.startAnimating()
                 spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: self.chartProjectsTableView.bounds.width, height: CGFloat(44))
 

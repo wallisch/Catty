@@ -581,10 +581,6 @@
     [[UIApplication sharedApplication] openURL:url options:[NSDictionary dictionary] completionHandler:nil];
 }
 
-+ (void)setNetworkActivityIndicator:(BOOL)enabled {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:enabled];
-}
-
 + (BOOL)isPhiroActivated
 {
     return kPhiroActivated == 1;

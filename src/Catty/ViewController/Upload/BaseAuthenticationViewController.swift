@@ -112,12 +112,10 @@ class BaseAuthenticationViewController: UIViewController {
 
     func showLoadingView() {
         loadingView.show()
-        Util.setNetworkActivityIndicator(true)
     }
 
     func hideLoadingView() {
         loadingView.hide()
-        Util.setNetworkActivityIndicator(false)
     }
 
     // MARK: UI Styling
@@ -138,9 +136,7 @@ class BaseAuthenticationViewController: UIViewController {
         textField.layer.borderColor = UIColor.textViewBorderGray.cgColor
         textField.layer.borderWidth = 1
         textField.layer.cornerRadius = 8
-        if #available(iOS 13.0, *) {
-            textField.layer.cornerCurve = .continuous
-        }
+        textField.layer.cornerCurve = .continuous
         textField.tag = tag
         if let iconImage = UIImage(named: icon) {
             textField.setIcon(iconImage)
@@ -151,9 +147,7 @@ class BaseAuthenticationViewController: UIViewController {
         button.backgroundColor = .globalTint
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.layer.cornerRadius = 8
-        if #available(iOS 13.0, *) {
-            button.layer.cornerCurve = .continuous
-        }
+        button.layer.cornerCurve = .continuous
         button.setTitle(title, for: .normal)
         button.setTitleColor(.navTint, for: .normal)
         button.setTitleColor(.white, for: .highlighted)

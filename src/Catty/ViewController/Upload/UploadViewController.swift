@@ -298,7 +298,7 @@ class UploadViewController: UIViewController, UploadCategoryViewControllerDelega
 
     func showLoadingForUploading() {
         showLoading()
-        let barButtonSpinner = UIActivityIndicatorView(style: .white)
+        let barButtonSpinner = UIActivityIndicatorView(style: .medium)
         barButtonSpinner.startAnimating()
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: barButtonSpinner)
     }

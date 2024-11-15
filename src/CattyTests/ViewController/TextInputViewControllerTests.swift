@@ -37,11 +37,7 @@ final class TextInputViewControllerTests: XCTestCase {
         controller.viewDidLoad()
         let accessibilityLabel = lookingForAccessibilityLabel(view: controller.view)
 
-        if #available(iOS 13, *) {
-            XCTAssertFalse(accessibilityLabel)
-        } else {
-            XCTAssertTrue(accessibilityLabel)
-        }
+        XCTAssertFalse(accessibilityLabel)
     }
 
     func lookingForAccessibilityLabel(view: UIView) -> Bool {

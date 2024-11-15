@@ -159,10 +159,10 @@ final class StoreAuthenticator: NSObject, StoreAuthenticatorProtocol {
         var body = [String: Any]()
         var upgrade = false
 
-        if let refreshToken = Keychain.loadValue(forKey: NetworkDefines.kRefreshToken) as? String {
+        if let refreshToken = Keychain.loadString(forKey: NetworkDefines.kRefreshToken) {
             url = URL.init(string: NetworkDefines.apiEndpointAuthenticationRefresh)
             body[keyRefreshToken] = refreshToken
-        } else if let legacyToken = Keychain.loadValue(forKey: NetworkDefines.kLegacyToken) as? String {
+        } else if let legacyToken = Keychain.loadString(forKey: NetworkDefines.kLegacyToken) {
             url = URL.init(string: NetworkDefines.apiEndpointAuthenticationUpgrade)
             body[keyLegacyToken] = legacyToken
             upgrade = true
@@ -287,19 +287,19 @@ final class StoreAuthenticator: NSObject, StoreAuthenticatorProtocol {
     // MARK: - Info Methods
 
     @objc static func isLoggedIn() -> Bool {
-        if Keychain.loadValue(forKey: NetworkDefines.kAuthenticationToken) != nil ||
-           Keychain.loadValue(forKey: NetworkDefines.kLegacyToken) != nil {
+        if Keychain.loadString(forKey: NetworkDefines.kAuthenticationToken) != nil ||
+           Keychain.loadString(forKey: NetworkDefines.kLegacyToken) != nil {
             return true
         }
         return false
     }
 
     static func needsTokenRefresh() -> Bool {
-        if Keychain.loadValue(forKey: NetworkDefines.kLegacyToken) != nil {
+        if Keychain.loadString(forKey: NetworkDefines.kLegacyToken) != nil {
             return true
         }
 
-        if let token = Keychain.loadValue(forKey: NetworkDefines.kAuthenticationToken) as? String,
+        if let token = Keychain.loadString(forKey: NetworkDefines.kAuthenticationToken),
            !StoreAuthenticator.isValidJWT(token) {
             return true
         }
@@ -307,7 +307,7 @@ final class StoreAuthenticator: NSObject, StoreAuthenticatorProtocol {
     }
 
     static func authorizationHeader() -> String? {
-        guard let token = Keychain.loadValue(forKey: NetworkDefines.kAuthenticationToken) as? String else {
+        guard let token = Keychain.loadString(forKey: NetworkDefines.kAuthenticationToken) else {
             return nil
         }
         return "Bearer \(token)"

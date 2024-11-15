@@ -61,7 +61,7 @@ class LoadingView: UIView {
     }
 
     func initActivityIndicator() {
-        activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+        activityIndicator = UIActivityIndicatorView(style: .large)
         activityIndicator?.frame = CGRect(x: 80, y: 15, width: 40, height: 40)
         if let anIndicator = activityIndicator {
             addSubview(anIndicator)

@@ -721,12 +721,8 @@ willBeginDraggingItemAtIndexPath:(NSIndexPath*)indexPath
 
     FormulaEditorViewController *formulaEditorViewController = [[FormulaEditorViewController alloc] initWithBrickCellFormulaData:formulaData andFormulaManager:self.formulaManager];
     formulaEditorViewController.object = self.object;
-    
-    if (@available(iOS 13.0, *)) {
-        formulaEditorViewController.modalInPresentation = true;
-    } else {
-        formulaEditorViewController.modalPresentationStyle = UIModalPresentationFullScreen;
-    }
+
+    formulaEditorViewController.modalInPresentation = true;
 
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:formulaEditorViewController];
     [self presentViewController:navController animated:YES completion:NULL];
@@ -1079,12 +1075,7 @@ willBeginDraggingItemAtIndexPath:(NSIndexPath*)indexPath
                 [self enableUserInteractionAndResetHighlight];
             }];
 
-
-            if (@available(iOS 13.0, *)) {
-                cvlvc.modalInPresentation = true;
-            } else {
-                cvlvc.modalPresentationStyle = UIModalPresentationFullScreen;
-            }
+            cvlvc.modalInPresentation = true;
 
             UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:cvlvc];
             [self presentViewController:navController animated:YES completion:NULL];
@@ -1124,12 +1115,7 @@ willBeginDraggingItemAtIndexPath:(NSIndexPath*)indexPath
                 [self enableUserInteractionAndResetHighlight];
             }];
 
-
-            if (@available(iOS 13.0, *)) {
-                cvlvc.modalInPresentation = true;
-            } else {
-                cvlvc.modalPresentationStyle = UIModalPresentationFullScreen;
-            }
+            cvlvc.modalInPresentation = true;
 
             UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:cvlvc];
             [self presentViewController:navController animated:YES completion:NULL];
